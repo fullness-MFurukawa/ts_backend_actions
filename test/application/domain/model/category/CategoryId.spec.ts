@@ -35,4 +35,28 @@ describe('値オブジェクト:CategoryIdの単体テスト', () => {
             expect(() => CategoryId.fromString('')).toThrow('商品カテゴリId、は必須です。');
         });
     });
+    describe('equals()メソッド', () => {
+        it('同じUUID値を持つCategoryIdは等しいと判定される', () => {
+            const uuidValue = uuid.v4();
+            const categoryId1 = CategoryId.fromString(uuidValue);
+            const categoryId2 = CategoryId.fromString(uuidValue);
+            expect(categoryId1.equals(categoryId2)).toBe(true);
+        });
+        it('異なるUUID値を持つCategoryIdは等しくないと判定される', () => {
+            const categoryId1 = CategoryId.createNew();
+            const categoryId2 = CategoryId.createNew();
+            expect(categoryId1.equals(categoryId2)).toBe(false);
+        });
+        it('CategoryId以外のオブジェクトとは等しくないと判定される', () => {
+            const categoryId = CategoryId.createNew();
+            expect(categoryId.equals({} as any)).toBe(false);
+        });
+    });
+    describe('toString()メソッド', () => {
+        it('CategoryIdのUUID値を含む文字列を返す', () => {
+            const uuidValue = uuid.v4();
+            const categoryId = CategoryId.fromString(uuidValue);
+            expect(categoryId.toString()).toBe(`CategoryId=${uuidValue}`);
+        });
+    });
 });
