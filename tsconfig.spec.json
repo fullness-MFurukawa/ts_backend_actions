@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "module": "CommonJS",  // ✅ Jest 実行時のみ CommonJS にする
+      "paths": {
+        "@src/*": ["./src/*"]
+      }
+    },
+    "include": ["test/**/*.ts", "src/**/*.ts"]
+}
