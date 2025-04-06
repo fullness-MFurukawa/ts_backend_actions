@@ -60,7 +60,12 @@ jobs:
         run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
       - name: Run CategoryModelRestorerTest
         run: npx jest test/infrastructure/typeorm/adapter/CategoryModelRestorer.spec.ts
-
+      - name: Run ProductModelConverterTest
+        run : npx jest test/infrastructure/typeorm/adapter/ProductModelConverter.spec.ts
+      - name: Run ProductModelRestorerTest
+        run : npx jest test/infrastructure/typeorm/adapter/ProductModelRestorer.spec.ts
+      
+      # テスト後にコンテナを停止
       - name: Stop services after tests
         run: |
-          docker-compose -f docker-compose.yml down  # テスト後にコンテナを停止
+          docker-compose -f docker-compose.yml down  
