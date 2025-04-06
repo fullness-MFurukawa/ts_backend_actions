@@ -28,10 +28,18 @@ jobs:
 
       - name: Install dependencies
         run: npm install  # 依存関係のインストール
-
+      # ドメイン層の値オブジェクト、エンティティのテスト
       - name: Run CategoryIdTest
         run: npx jest test/application/domain/model/category/CategoryId.spec.ts
       - name: Run CategoryNameTest
         run: npx jest test/application/domain/model/category/CategoryName.spec.ts
       - name: Run CategoryTest
         run: npx jest test/application/domain/model/category/Category.spec.ts
+      - name: Run ProductIdTest
+        run: npx jest test/application/domain/model/product/ProductId.spec.ts
+      - name: Run ProductNameTest
+        run: npx jest test/application/domain/model/product/ProductName.spec.ts
+      - name: Run ProductPriceTest
+        run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
+      - name: Run ProductTest
+        run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
