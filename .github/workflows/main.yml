@@ -23,7 +23,6 @@ jobs:
         run: |
           docker-compose -f docker-compose.yml up -d
   
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -39,15 +38,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install  # 依存関係のインストール
-
-      # MySQLが完全に起動するまで待機
-      - name: Wait for MySQL to be ready
-        run: |
-         until docker ps | grep "mysql"; do
-           echo "Waiting for MySQL to be ready..."
-           sleep 5
-         done
-         echo "MySQL is ready!"
 
       # ドメイン層の値オブジェクト、エンティティのテスト
       - name: Run CategoryIdTest
