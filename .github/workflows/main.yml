@@ -17,6 +17,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'  # Node.jsのバージョンを指定
+          
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm  # npmのキャッシュを保存する場所
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}  # package-lock.jsonの変更をトリガーにキャッシュを作成
+          restore-keys: |
+            ${{ runner.os }}-node-  # キャッシュが見つからない場合のフォールバックキー
 
       - name: Install dependencies
         run: npm install  # 依存関係のインストール
