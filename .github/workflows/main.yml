@@ -29,5 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm install  # 依存関係のインストール
 
-      - name: Run tests
-        run: npm test -- --verbose  # 詳細なテスト結果を表示するために --verbose フラグを追加
+      - name: Run CategoryIdTest
+        run: npx jest test/application/domain/model/category/CategoryId.spec.ts
+      - name: Run CategoryNameTest
+        run: npx jest test/application/domain/model/category/CategoryName.spec.ts
+      - name: Run CategoryTest
+        run: npx jest test/application/domain/model/category/Category.spec.ts
