@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest  # GitHubが提供するUbuntuランナーで実行
-
     # MySQLデータベースサービスの起動
     services:
       mysql:
@@ -21,7 +20,7 @@ jobs:
         ports:
           - 3306:3306  # ポート設定
         options: --health-cmd="mysqladmin ping --silent" --health-timeout=5s --health-retries=3  # 健康チェック設定
-    # 環境変数の設定
+    # 環境変数の設定  
     env:
       DB_TYPE: mysql
       DB_HOST: mysql  # サービス名をMySQLに変更
@@ -33,8 +32,13 @@ jobs:
       DB_LOGGING: true
 
     steps:
+      # MySQLが完全に起動するまで待機
+      - name: Wait for MySQL to be ready
+        run: |
+          docker exec mysql mysqladmin --user=root --password=password --host=localhost --silent --wait=30 ping
+      # リポジトリからコードをチェックアウト
       - name: Checkout code
-        uses: actions/checkout@v2  # リポジトリからコードをチェックアウト
+        uses: actions/checkout@v2  
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
