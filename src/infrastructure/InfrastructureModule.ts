@@ -25,6 +25,7 @@ import { ProductModelRestorer } from "./typeorm/adapter/ProductModelRestorer";
             envFilePath: ".env",
         }),
         // データベース接続情報を環境変数から設定 (TypeORM設定)
+        /*
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
@@ -43,6 +44,19 @@ import { ProductModelRestorer } from "./typeorm/adapter/ProductModelRestorer";
                 synchronize: configService.get<boolean>("DB_SYNCHRONIZE"),// 本番環境では必ずfalseに設定
                 logging: configService.get<boolean>("DB_LOGGING"),// SQLログの出力を有効化
             }), 
+        }),
+        */
+
+        TypeOrmModule.forRoot({
+            type: 'mysql',
+            host: process.env.DB_HOST, // MySQLサービス名 'mysql'
+            port: parseInt(process.env.DB_PORT || '3306', 10), // DB_PORTがundefinedの場合は3306を使用
+            username: process.env.DB_USERNAME,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DATABASE,
+            entities: [CategoryModel, ProductModel],  // 使っているエンティティを追加
+            synchronize: process.env.DB_SYNCHRONIZE === 'true', 
+            logging: process.env.DB_LOGGING === 'true',
         }),
         // TypeORMエンティティをモジュールに登録
         TypeOrmModule.forFeature([

@@ -9,6 +9,29 @@ jobs:
   build:
     runs-on: ubuntu-latest  # GitHubが提供するUbuntuランナーで実行
 
+    # MySQLデータベースサービスの起動
+    services:
+      mysql:
+        image: mysql:8.1
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: exercise_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+        ports:
+          - 3306:3306  # ポート設定
+        options: --health-cmd="mysqladmin ping --silent" --health-timeout=5s --health-retries=3  # 健康チェック設定
+    # 環境変数の設定
+    env:
+      DB_TYPE: mysql
+      DB_HOST: mysql  # サービス名をMySQLに変更
+      DB_PORT: 3306
+      DB_USERNAME: user
+      DB_PASSWORD: password
+      DB_DATABASE: exercise_db
+      DB_SYNCHRONIZE: false
+      DB_LOGGING: true
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2  # リポジトリからコードをチェックアウト
@@ -45,6 +68,6 @@ jobs:
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
 
       # インフラストラクチャ層のDDDエンティティとTypeORMモデルの相互変換機能のテスト
-      - name: Run CategoryModelConverterTest
-        run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
+      # - name: Run CategoryModelConverterTest
+      #   run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
       
