@@ -22,10 +22,6 @@ jobs:
         options: --health-cmd="mysqladmin ping --silent" --health-timeout=5s --health-retries=3  # 健康チェック設定
 
     steps:
-      - name: Wait for MySQL to be ready
-        run: |
-          docker exec -t mysql mysqladmin --user=root --password=password --host=localhost --silent --wait=30 ping
-
       - name: Checkout code
         uses: actions/checkout@v2  # リポジトリからコードをチェックアウト
 
@@ -44,6 +40,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install  # 依存関係のインストール
+
+      # MySQLが完全に起動するまで待機
+      - name: Wait for MySQL to be ready
+        run: |
+          until docker exec mysql mysqladmin --user=root --password=password --host=localhost --silent --wait=30 ping; do
+            echo "Waiting for MySQL to be ready..."
+            sleep 5
+          done
 
       # ドメイン層の値オブジェクト、エンティティのテスト
       - name: Run CategoryIdTest
