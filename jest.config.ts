@@ -16,4 +16,7 @@ export default {
     "^.+\\.tsx?$": "ts-jest"
   },
   moduleDirectories: ["node_modules", "<rootDir>"],
+  testMatch: [
+    "**/test/**/*.spec.ts"  // *.tsファイルのみを対象にする
+  ],
 };
