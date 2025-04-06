@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest  # GitHubが提供するUbuntuランナーで実行
-    # MySQLデータベースサービスの起動
+
     services:
       mysql:
         image: mysql:8.1
@@ -20,25 +20,14 @@ jobs:
         ports:
           - 3306:3306  # ポート設定
         options: --health-cmd="mysqladmin ping --silent" --health-timeout=5s --health-retries=3  # 健康チェック設定
-    # 環境変数の設定  
-    env:
-      DB_TYPE: mysql
-      DB_HOST: mysql  # サービス名をMySQLに変更
-      DB_PORT: 3306
-      DB_USERNAME: user
-      DB_PASSWORD: password
-      DB_DATABASE: exercise_db
-      DB_SYNCHRONIZE: false
-      DB_LOGGING: true
 
     steps:
-      # MySQLが完全に起動するまで待機
       - name: Wait for MySQL to be ready
         run: |
-          docker exec mysql mysqladmin --user=root --password=password --host=localhost --silent --wait=30 ping
-      # リポジトリからコードをチェックアウト
+          docker exec -t mysql mysqladmin --user=root --password=password --host=localhost --silent --wait=30 ping
+
       - name: Checkout code
-        uses: actions/checkout@v2  
+        uses: actions/checkout@v2  # リポジトリからコードをチェックアウト
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -55,6 +44,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install  # 依存関係のインストール
+
       # ドメイン層の値オブジェクト、エンティティのテスト
       - name: Run CategoryIdTest
         run: npx jest test/application/domain/model/category/CategoryId.spec.ts
@@ -74,4 +64,3 @@ jobs:
       # インフラストラクチャ層のDDDエンティティとTypeORMモデルの相互変換機能のテスト
       - name: Run CategoryModelConverterTest
         run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
-      
