@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+# 演習用データベースコンテナ(MySQL8.1)
+  ts_exercise_db:
+    image: mysql:8.1
+    container_name: "ts_exercise_db"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: exercise_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: 'Asia/Tokyo'
+    ports:
+      - 3306:3306

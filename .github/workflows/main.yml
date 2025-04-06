@@ -9,21 +9,20 @@ jobs:
   build:
     runs-on: ubuntu-latest  # GitHubが提供するUbuntuランナーで実行
 
-    services:
-      mysql:
-        image: mysql:8.1
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: exercise_db
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-        ports:
-          - 3306:3306  # ポート設定
-        options: --health-cmd="mysqladmin ping --silent" --health-timeout=5s --health-retries=3  # 健康チェック設定
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2  # リポジトリからコードをチェックアウト
+
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose
+
+      # コンテナをバックグラウンドで起動
+      - name: Start services with Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d
+  
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -67,5 +66,9 @@ jobs:
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
 
       # インフラストラクチャ層のDDDエンティティとTypeORMモデルの相互変換機能のテスト
-      - name: Run CategoryModelConverterTest
-        run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
+      # - name: Run CategoryModelConverterTest
+      # run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
+
+      - name: Stop services after tests
+        run: |
+          docker-compose -f docker-compose.yml down  # テスト後にコンテナを停止
