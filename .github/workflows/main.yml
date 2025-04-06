@@ -66,8 +66,8 @@ jobs:
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
 
       # インフラストラクチャ層のDDDエンティティとTypeORMモデルの相互変換機能のテスト
-      # - name: Run CategoryModelConverterTest
-      # run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
+      - name: Run CategoryModelConverterTest
+        run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
 
       - name: Stop services after tests
         run: |
