@@ -16,6 +16,8 @@ const CategoryModelConverter_1 = require("./typeorm/adapter/CategoryModelConvert
 const CategoryModelRestorer_1 = require("./typeorm/adapter/CategoryModelRestorer");
 const ProductModelConverter_1 = require("./typeorm/adapter/ProductModelConverter");
 const ProductModelRestorer_1 = require("./typeorm/adapter/ProductModelRestorer");
+const CategoryRepositoryImpl_1 = require("./typeorm/repository/CategoryRepositoryImpl");
+const ProductRepositoryImpl_1 = require("./typeorm/repository/ProductRepositoryImpl");
 /**
  * インフラストラクチャ層のモジュール定義
  * - データベース接続情報
@@ -56,19 +58,6 @@ exports.InfrastructureModule = InfrastructureModule = __decorate([
                     logging: configService.get("DB_LOGGING"), // SQLログの出力を有効化
                 }),
             }),
-            /*
-            TypeOrmModule.forRoot({
-                type: 'mysql',
-                host: process.env.DB_HOST, // MySQLサービス名 'mysql'
-                port: parseInt(process.env.DB_PORT || '3306', 10), // DB_PORTがundefinedの場合は3306を使用
-                username: process.env.DB_USERNAME,
-                password: process.env.DB_PASSWORD,
-                database: process.env.DB_DATABASE,
-                entities: [CategoryModel, ProductModel],  // 使っているエンティティを追加
-                synchronize: process.env.DB_SYNCHRONIZE === 'true',
-                logging: process.env.DB_LOGGING === 'true',
-            }),
-            */
             // TypeORMエンティティをモジュールに登録
             typeorm_1.TypeOrmModule.forFeature([
                 ProductModel_1.ProductModel,
@@ -96,12 +85,24 @@ exports.InfrastructureModule = InfrastructureModule = __decorate([
                 provide: 'ProductModelRestorer',
                 useClass: ProductModelRestorer_1.ProductModelRestorer,
             },
+            // 商品カテゴリリポジトリ
+            {
+                provide: 'CategoryRepository',
+                useClass: CategoryRepositoryImpl_1.CategoryRepositoryImpl,
+            },
+            // 商品リポジトリ
+            {
+                provide: 'ProductRepository',
+                useClass: ProductRepositoryImpl_1.ProductRepositoryImpl,
+            },
         ],
         exports: [
             'CategoryModelConverter',
             'CategoryModelRestorer',
             'ProductModelConverter',
             'ProductModelRestorer',
+            'CategoryRepository',
+            'ProductRepository',
         ]
     })
 ], InfrastructureModule);

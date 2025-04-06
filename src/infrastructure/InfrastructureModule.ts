@@ -7,6 +7,8 @@ import { CategoryModelConverter } from "./typeorm/adapter/CategoryModelConverter
 import { CategoryModelRestorer } from "./typeorm/adapter/CategoryModelRestorer";
 import { ProductModelConverter } from "./typeorm/adapter/ProductModelConverter";
 import { ProductModelRestorer } from "./typeorm/adapter/ProductModelRestorer";
+import { CategoryRepositoryImpl } from "./typeorm/repository/CategoryRepositoryImpl";
+import { ProductRepositoryImpl } from "./typeorm/repository/ProductRepositoryImpl";
 
 /**
  * インフラストラクチャ層のモジュール定義
@@ -44,20 +46,6 @@ import { ProductModelRestorer } from "./typeorm/adapter/ProductModelRestorer";
                 logging: configService.get<boolean>("DB_LOGGING"),// SQLログの出力を有効化
             }), 
         }),
-        
-        /*
-        TypeOrmModule.forRoot({
-            type: 'mysql',
-            host: process.env.DB_HOST, // MySQLサービス名 'mysql'
-            port: parseInt(process.env.DB_PORT || '3306', 10), // DB_PORTがundefinedの場合は3306を使用
-            username: process.env.DB_USERNAME,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_DATABASE,
-            entities: [CategoryModel, ProductModel],  // 使っているエンティティを追加
-            synchronize: process.env.DB_SYNCHRONIZE === 'true', 
-            logging: process.env.DB_LOGGING === 'true',
-        }),
-        */
         // TypeORMエンティティをモジュールに登録
         TypeOrmModule.forFeature([
             ProductModel, 
@@ -85,12 +73,24 @@ import { ProductModelRestorer } from "./typeorm/adapter/ProductModelRestorer";
             provide: 'ProductModelRestorer',
             useClass: ProductModelRestorer,
         },
+        // 商品カテゴリリポジトリ
+        {
+            provide: 'CategoryRepository' ,
+            useClass: CategoryRepositoryImpl,
+        },
+        // 商品リポジトリ
+        {
+            provide: 'ProductRepository' ,
+            useClass: ProductRepositoryImpl,
+        },
     ],
     exports: [
         'CategoryModelConverter'        ,
         'CategoryModelRestorer'         ,
         'ProductModelConverter'         ,
         'ProductModelRestorer'          ,
+        'CategoryRepository'            ,
+        'ProductRepository'             ,
     ]
 })
 export class InfrastructureModule {}
