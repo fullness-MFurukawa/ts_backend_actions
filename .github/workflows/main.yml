@@ -44,10 +44,11 @@ jobs:
       # MySQLが完全に起動するまで待機
       - name: Wait for MySQL to be ready
         run: |
-          until docker exec mysql mysqladmin --user=root --password=password --host=localhost --silent --wait=30 ping; do
-            echo "Waiting for MySQL to be ready..."
-            sleep 5
-          done
+         until docker ps | grep "mysql"; do
+           echo "Waiting for MySQL to be ready..."
+           sleep 5
+         done
+         echo "MySQL is ready!"
 
       # ドメイン層の値オブジェクト、エンティティのテスト
       - name: Run CategoryIdTest
