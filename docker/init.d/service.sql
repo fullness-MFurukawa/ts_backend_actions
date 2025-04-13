@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS category (
     id INT NOT NULL AUTO_INCREMENT, /* カテゴリId(主キー、自動インクリメント) */
     obj_id VARCHAR(36) NOT NULL,    /* カテゴリの一意識別子（UUID)           */
-    name VARCHAR(50) NOT NULL,      /* カテゴリ名 */
+    name VARCHAR(100) NOT NULL,      /* カテゴリ名 */
     PRIMARY KEY (id),
     UNIQUE KEY idx_obj_id (obj_id)
 );
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS category (
 CREATE TABLE IF NOT EXISTS product (
     id INT NOT NULL AUTO_INCREMENT, /* 商品Id(主キー、自動インクリメント)   */
     obj_id VARCHAR(36) NOT NULL,    /* 商品一意識別子(UUID)                */
-    name VARCHAR(50) NOT NULL,      /* 商品名                             */
+    name VARCHAR(100) NOT NULL,      /* 商品名                             */
     price INT NOT NULL,             /* 商品単価                           */
     category_id VARCHAR(36) NOT NULL,/* 商品カテゴリの一意識別子(外部キー)   */
     PRIMARY KEY (id),
