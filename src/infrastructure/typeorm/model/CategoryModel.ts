@@ -22,8 +22,8 @@ export class CategoryModel{
     // オブジェクトIdを表すobj_idカラム、36文字以内で必須
     @Column({ name: "obj_id" , type: "varchar", length: 36, nullable: false })
     objId!: string;
-    // カテゴリー名を表すnameカラム、20文字以内で必須
-    @Column({ type: "varchar", length: 20, nullable: false })
+    // カテゴリー名を表すnameカラム、50文字以内で必須
+    @Column({ type: "varchar", length: 50, nullable: false })
     name!: string;
     // このカテゴリーに属するProductModelの配列、1対多の関係
     @OneToMany(() => ProductModel, (product) => product.category)

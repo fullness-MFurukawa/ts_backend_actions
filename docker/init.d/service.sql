@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS category (
     id INT NOT NULL AUTO_INCREMENT, /* カテゴリId(主キー、自動インクリメント) */
     obj_id VARCHAR(36) NOT NULL,    /* カテゴリの一意識別子（UUID)           */
-    name VARCHAR(20) NOT NULL,      /* カテゴリ名 */
+    name VARCHAR(50) NOT NULL,      /* カテゴリ名 */
     PRIMARY KEY (id),
     UNIQUE KEY idx_obj_id (obj_id)
 );
