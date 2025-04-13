@@ -14,5 +14,4 @@ services:
     ports:
       - 3306:3306
     volumes:
-      # init.sql を起動時に自動実行
-      - ./docker/init.d:/docker-entrypoint-initdb.d
+      - ./docker/init.d/init.sql:/docker-entrypoint-initdb.d/init.sql
