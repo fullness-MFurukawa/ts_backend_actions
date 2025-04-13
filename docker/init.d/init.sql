@@ -1,3 +1,11 @@
+-- DROP TABLES in dependency order
+DROP TABLE IF EXISTS refresh_tokens;
+DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category;
+
 /* カテゴリーテーブル作成 */
 CREATE TABLE IF NOT EXISTS category (
     id INT NOT NULL AUTO_INCREMENT, /* カテゴリId(主キー、自動インクリメント) */
