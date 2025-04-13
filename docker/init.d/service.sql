@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category;
+
 /* カテゴリーテーブル作成 */
 CREATE TABLE IF NOT EXISTS category (
     id INT NOT NULL AUTO_INCREMENT, /* カテゴリId(主キー、自動インクリメント) */
