@@ -26,10 +26,10 @@ jobs:
       # テストで利用するテーブルとデータの準備
       - name: Wait for MySQL to be ready
         run: |
-            until docker exec ts_exercise_db mysqladmin ping -h"localhost" -u"user" -p"password" --silent; do
-              echo "Waiting for MySQL..."; sleep 2;
-            done
-      
+          until docker exec ts_exercise_db mysqladmin ping -u"user" -p"password" --silent; do
+          echo "Waiting for MySQL..."; sleep 2;
+          done
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
