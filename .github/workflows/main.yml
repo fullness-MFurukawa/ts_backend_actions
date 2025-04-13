@@ -30,9 +30,9 @@ jobs:
           echo "Waiting for MySQL..."; sleep 2;
           done
 
-      #- name: Execute init.sql manually
-      #  run: |
-      #    docker exec -i ts_exercise_db mysql -uroot -proot exercise_db < ./docker/init.d/init.sql
+      - name: Execute init.sql manually
+        run: |
+          docker exec -i ts_exercise_db mysql -uroot -proot exercise_db < ./docker/init.d/init.sql
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
