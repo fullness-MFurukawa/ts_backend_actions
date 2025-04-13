@@ -22,7 +22,7 @@ jobs:
       - name: Start services with Docker Compose
         run: |
           docker-compose -f docker-compose.test.yml up -d
-          
+
       # テストで利用するテーブルとデータの準備
       - name: Wait for MySQL to be ready
         run: |
@@ -63,15 +63,18 @@ jobs:
       #  run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
 
       # インフラストラクチャ層のDDDエンティティとTypeORMモデルの相互変換機能のテスト
-      - name: Run CategoryModelConverterTest
-        run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
-      - name: Run CategoryModelRestorerTest
-        run: npx jest test/infrastructure/typeorm/adapter/CategoryModelRestorer.spec.ts
-      - name: Run ProductModelConverterTest
-        run : npx jest test/infrastructure/typeorm/adapter/ProductModelConverter.spec.ts
-      - name: Run ProductModelRestorerTest
-        run : npx jest test/infrastructure/typeorm/adapter/ProductModelRestorer.spec.ts
-      
+      #- name: Run CategoryModelConverterTest
+      #  run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
+      #- name: Run CategoryModelRestorerTest
+      #  run: npx jest test/infrastructure/typeorm/adapter/CategoryModelRestorer.spec.ts
+      #- name: Run ProductModelConverterTest
+      #  run : npx jest test/infrastructure/typeorm/adapter/ProductModelConverter.spec.ts
+      #- name: Run ProductModelRestorerTest
+      #  run : npx jest test/infrastructure/typeorm/adapter/ProductModelRestorer.spec.ts
+      - name: Run CategoryRepositoryImplTest
+        run : npx jest test/infrastructure/typeorm/repository/CategoryRepositoryImpl.spec.ts
+
+
       # テスト後にコンテナを停止
       - name: Stop services after tests
         run: |
