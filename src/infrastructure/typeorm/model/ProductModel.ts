@@ -23,8 +23,8 @@ export class ProductModel{
     // オブジェクトIdを表すobjIdカラム、36文字以内で必須
     @Column({ name: "obj_id" , type: "varchar", length: 36, nullable: false })
     objId!: string;
-    // 商品名を表すnameカラム、30文字以内で必須
-    @Column({ type: "varchar", length: 30, nullable: false })
+    // 商品名を表すnameカラム、50文字以内で必須
+    @Column({ type: "varchar", length: 50, nullable: false })
     name!: string;
     // 商品の価格を表すpriceカラム、整数で必須
     @Column({ type: "int", nullable: false })
