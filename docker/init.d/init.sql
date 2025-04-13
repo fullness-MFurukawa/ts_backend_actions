@@ -1,5 +1,3 @@
-現在init.dというフォルダにinit.sqlというファイルを作成して、以下のSQLを実行して
-テーブルやデータを作成しています。
 /* カテゴリーテーブル作成 */
 CREATE TABLE IF NOT EXISTS category (
     id INT NOT NULL AUTO_INCREMENT, /* カテゴリId(主キー、自動インクリメント) */
