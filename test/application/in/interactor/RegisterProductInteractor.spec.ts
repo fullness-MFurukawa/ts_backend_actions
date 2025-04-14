@@ -107,7 +107,7 @@ describe('RegisterProductInteractorの単体テスト', () => {
             expect(resulrts).toHaveLength(1);
             expect(resulrts![0].getName().getValue()).toBe('ノート');
             expect(resulrts![0].getPrice().getValue()).toBe(500);
-            expect(resulrts![0].getCategory()?.getId()).toBe('b1524011-b6af-417e-8bf2-f449dd58b5c0');
+            expect(resulrts![0].getCategory()!.getId()).toBe('b1524011-b6af-417e-8bf2-f449dd58b5c0');
         });
     });
     
