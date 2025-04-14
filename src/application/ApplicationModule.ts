@@ -4,6 +4,7 @@ import { CategoryDTOConverter } from "./in/adapter/CategoryDTOConverter";
 import { ProductDTOConverter } from "./in/adapter/ProductDTOConverter";
 import { ProductDTORestorer } from "./in/adapter/ProductDTORestorer";
 import { SearchProductInteractor } from "./in/Interactor/SearchProductInteractor";
+import { RegisterProductInteractor } from "./in/Interactor/RegisterProductInteractor";
 
 /**
  * サービス層のモジュール定義
@@ -39,12 +40,18 @@ import { SearchProductInteractor } from "./in/Interactor/SearchProductInteractor
             provide:    'SearchProductUsecase' ,
             useClass:   SearchProductInteractor ,
         },
+        // 商品登録ユースケースインターフェイスの実装
+        {
+            provide:    'RegisterProductUsecase' ,
+            useClass:   RegisterProductInteractor ,
+        },
     ],
     exports: [
         'CategoryDTOConverter'      ,  
         'ProductDTOConverter'       , 
         'ProductDTORestorer'        ,  
         'SearchProductUsecase'      ,
+        'RegisterProductUsecase'    ,
     ]
 })
 export class ApplicationModule {}
