@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { InfrastructureModule } from "@src/infrastructure/InfrastructureModule";
 import { CategoryDTOConverter } from "./in/adapter/CategoryDTOConverter";
 import { ProductDTOConverter } from "./in/adapter/ProductDTOConverter";
+import { ProductDTORestorer } from "./in/adapter/ProductDTORestorer";
 
 /**
  * サービス層のモジュール定義
@@ -27,10 +28,16 @@ import { ProductDTOConverter } from "./in/adapter/ProductDTOConverter";
             provide:    'ProductDTOConverter',  
             useClass:   ProductDTOConverter,   
         },
+        // ProductDTOからProductエンティティを復元する
+        {
+            provide:    'ProductDTORestorer',    
+            useClass:   ProductDTORestorer,     
+        },
     ],
     exports: [
         'CategoryDTOConverter'      ,  
         'ProductDTOConverter'       , 
+        'ProductDTORestorer'        ,  
     ]
 })
 export class ApplicationModule {}
