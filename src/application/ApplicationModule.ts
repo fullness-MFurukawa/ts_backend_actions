@@ -3,6 +3,7 @@ import { InfrastructureModule } from "@src/infrastructure/InfrastructureModule";
 import { CategoryDTOConverter } from "./in/adapter/CategoryDTOConverter";
 import { ProductDTOConverter } from "./in/adapter/ProductDTOConverter";
 import { ProductDTORestorer } from "./in/adapter/ProductDTORestorer";
+import { SearchProductInteractor } from "./in/Interactor/SearchProductInteractor";
 
 /**
  * サービス層のモジュール定義
@@ -33,11 +34,17 @@ import { ProductDTORestorer } from "./in/adapter/ProductDTORestorer";
             provide:    'ProductDTORestorer',    
             useClass:   ProductDTORestorer,     
         },
+        // 商品検索ユースケースインターフェイスの実装
+        {
+            provide:    'SearchProductUsecase' ,
+            useClass:   SearchProductInteractor ,
+        },
     ],
     exports: [
         'CategoryDTOConverter'      ,  
         'ProductDTOConverter'       , 
         'ProductDTORestorer'        ,  
+        'SearchProductUsecase'      ,
     ]
 })
 export class ApplicationModule {}
