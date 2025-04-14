@@ -93,7 +93,8 @@ jobs:
         run : npx jest test/application/in/interactor/SearchProductInteractor.spec.ts    
       - name: Run RegisterProductInteractorTest
         run : npx jest test/application/in/interactor/RegisterProductInteractor.spec.ts    
-
+      - name: Run UpdateProductInteractorTest
+        run : npx jest test/application/in/interactor/UpdateProductInteractor.spec.ts
       # テスト後にコンテナを停止
       - name: Stop services after tests
         run: |
