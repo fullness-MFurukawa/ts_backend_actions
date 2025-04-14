@@ -36,7 +36,7 @@ describe('RegisterProductInteractorの単体テスト', () => {
         // ユースケースを取得
         usecase = app.get<RegisterProductUsecase>('RegisterProductUsecase');
         // リポジトリを取得
-        repository = app.get<ProductRepository<EntityManager>>('ProductRepositoru');
+        repository = app.get<ProductRepository<EntityManager>>('ProductRepository');
     });
     /**
      * すべてのテストの後処理
@@ -75,7 +75,7 @@ describe('RegisterProductInteractorの単体テスト', () => {
             `商品カテゴリId:(b1524011-b6af-417e-8bf2-f449dd58b5c1)の商品カテゴリは存在しません。`);
         });
     });
-    
+
     describe('exists()メソッドのテスト', () => {
         it('商品が存在しない場合、ExistsExceptionをスローしない', async () => {
             await expect(usecase.exists('消しゴム')).resolves.not.toThrow();
