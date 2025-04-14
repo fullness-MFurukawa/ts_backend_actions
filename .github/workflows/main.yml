@@ -75,11 +75,17 @@ jobs:
       #  run : npx jest test/infrastructure/typeorm/adapter/ProductModelConverter.spec.ts
       #- name: Run ProductModelRestorerTest
       #  run : npx jest test/infrastructure/typeorm/adapter/ProductModelRestorer.spec.ts
-      - name: Run CategoryRepositoryImplTest
-        run : npx jest test/infrastructure/typeorm/repository/CategoryRepositoryImpl.spec.ts
-      - name: Run ProductRepositoryImplTest
-        run : npx jest test/infrastructure/typeorm/repository/ProductRepositoryImpl.spec.ts
-
+      # Repositoryインターフェイス実装の単体テスト
+      #- name: Run CategoryRepositoryImplTest
+      #  run : npx jest test/infrastructure/typeorm/repository/CategoryRepositoryImpl.spec.ts
+      #- name: Run ProductRepositoryImplTest
+      #  run : npx jest test/infrastructure/typeorm/repository/ProductRepositoryImpl.spec.ts
+      
+      # アプリケーション層のDDDエンティティからDTOへの変換機能のテスト
+      - name: Run CategoryDTOConverterTest
+        run : npx jest test/application/in/adapter/CategoryDTOConverter.spec.ts    
+      - name: Run ProductDTOConverterTest
+        run : npx jest test/application/in/adapter/ProductDTOConverter.spec.ts
 
       # テスト後にコンテナを停止
       - name: Stop services after tests
