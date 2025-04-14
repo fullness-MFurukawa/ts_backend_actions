@@ -86,6 +86,8 @@ jobs:
         run : npx jest test/application/in/adapter/CategoryDTOConverter.spec.ts    
       - name: Run ProductDTOConverterTest
         run : npx jest test/application/in/adapter/ProductDTOConverter.spec.ts
+      - name: Run ProductDTORestorerTest
+        run : npx jest test/application/in/adapter/ProductDTORestorer.spec.ts
 
       # テスト後にコンテナを停止
       - name: Stop services after tests
