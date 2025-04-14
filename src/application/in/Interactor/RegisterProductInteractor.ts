@@ -30,7 +30,6 @@ export class RegisterProductInteractor implements RegisterProductUsecase{
      * @param manager TypeORMのEntityManager
      * @param categoryConverter CategoryエンティティをCategoryDTOに変換する
      * @param categoryRepository CategoryRepositoryインターフェイス
-     * @param productConverter ProductエンティティをProductDTOに変換する
      * @param productRestorer ProductDTOからProductエンティティを復元する
      * @param productRepository ProductRepositoryインターフェイス
      */
@@ -41,8 +40,6 @@ export class RegisterProductInteractor implements RegisterProductUsecase{
         private readonly categoryConverter: Converter<Category , CategoryDTO>,
         @Inject('CategoryRepository')
         private readonly categoryRepository: CategoryRepository<EntityManager>,
-        @Inject('ProductDTOConverter')
-        private readonly productConverter: Converter<Product , ProductDTO>,
         @Inject('ProductDTORestorer')
         private readonly productRestorer: Restorer<ProductDTO , Product>,
         @Inject('ProductRepository')
