@@ -29,6 +29,7 @@ import { ApplicationModule } from "./application/ApplicationModule";
         }),
         InfrastructureModule    ,// インフラストラクチャ層のモジュール定義
         ApplicationModule       ,// アプリケーション層のモジュール定義
+        InfrastructureModule    ,// インターフェイス層のモジュール定義
     ],
     exports: [JwtModule],
 })
