@@ -138,7 +138,7 @@ describe('既存商品変更(UpdateProductRESTController)のテスト', () => {
             expect(response.body).toEqual({
                 statusCode: 404,
                 timestamp: expect.any(String),
-                path: '/products/modify',
+                path: '/products/update',
                 message: `商品Id:(${productId})の商品は存在しないため変更できませんでした。`,
             });
         });
