@@ -1,4 +1,4 @@
-import { INestApplication } from "@nestjs/common";
+import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test } from "@nestjs/testing/test";
 import { AppModule } from "@src/AppModule";
 import { HttpExceptionFilter } from "@src/interface/filter/HttpExceptionFilter";
@@ -23,6 +23,14 @@ describe('商品キーワード検索(ProductKeywordSearchRESTController)のテ�
         }).compile();
         app = moduleFixture.createNestApplication();
         app.useGlobalFilters(new HttpExceptionFilter()); // 例外フィルターを適用
+         // ↓ この設定を追加
+        app.useGlobalPipes(new ValidationPipe({
+            transform: true,
+            whitelist: true,// DTOに定義されていないプロパティは除去
+            forbidNonWhitelisted: true,// DTOに存在しないプロパティは例外
+            forbidUnknownValues: true,
+            enableDebugMessages: true, // デバッグメッセージも表示
+        }));
         await app.init();
     });
     /**
