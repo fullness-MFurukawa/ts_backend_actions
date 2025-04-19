@@ -1,4 +1,5 @@
 import {    ArgumentsHost, 
+            BadRequestException, 
             Catch, 
             ExceptionFilter, 
             ForbiddenException, 
@@ -27,6 +28,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
      */
      private static readonly statusMap = new Map<Function, number>([
         [HttpException, HttpStatus.INTERNAL_SERVER_ERROR], // デフォルト
+        [BadRequestException, HttpStatus.BAD_REQUEST],     
         [DomainException, HttpStatus.BAD_REQUEST], // DomainException
         [ExistsException, HttpStatus.BAD_REQUEST], // ExistsException
         [NotFoundException, HttpStatus.NOT_FOUND], // NotFoundException
