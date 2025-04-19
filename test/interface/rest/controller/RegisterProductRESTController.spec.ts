@@ -9,7 +9,7 @@ import { DataSource } from "typeorm";
 /**
  * 新商品登録コントローラのテストドライバ
  * [テスト実行コマンド]
- * npx jest test/interface/rest/controller/ProductRegisterRESTController.spec.ts
+ * npx jest test/interface/rest/controller/RegisterProductRESTController.spec.ts
  * @author Fullness,Inc.
  * @date 2025-03-20
  * @version 1.0.0

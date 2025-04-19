@@ -98,8 +98,8 @@ jobs:
       # インターフェイス層のREST Controllerテスト
       - name: 商品キーワード検索コントローラのテスト
         run : npx jest test/interface/rest/controller/KeywordSearchProductRESTController.spec.ts
-      #- name: 商品登録コントローラのテスト
-      #  run : npx jest test/interface/rest/controller/ProductRegisterRESTController.spec.ts
+      - name: 商品登録コントローラのテスト
+        run : npx jest test/interface/rest/controller/RegisterProductRESTController.spec.ts
       - name: 商品変更コントローラのテスト
         run : npx jest test/interface/rest/controller/UpdateProductRESTController.spec.ts
       # テスト後にコンテナを停止

@@ -15,8 +15,8 @@ import { CategoryIdSearchParam } from "../param/CategoryIdSearchParam";
  */
 @ApiTags("商品登録") // Swagger のカテゴリ設定
 @Controller('products/register')
-export class ProductRegisterRESTController {
-    private readonly logger = new Logger(ProductRegisterRESTController.name);
+export class RegisterProductRESTController {
+    private readonly logger = new Logger(RegisterProductRESTController.name);
     /**
      * コンストラクタ
      * @param usecase 商品登録ユースケース
