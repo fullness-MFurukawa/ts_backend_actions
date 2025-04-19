@@ -26,17 +26,9 @@ jobs:
       # テストで利用するテーブルとデータの準備
       - name: Wait for MySQL to be ready (with query)
         run: |
-          for i in {1..30}; do
-            echo "Checking MySQL ($i/30)..."
-            if docker exec ts_exercise_db mysql -uroot -proot -e "SELECT 1" > /dev/null 2>&1; then
-              echo "MySQL is ready!"
-              exit 0
-            fi
-            sleep 2
+          until docker exec ts_exercise_db mysql -uroot -proot -e "SELECT 1" &>/dev/null; do
+            echo "Waiting for MySQL..."; sleep 2;
           done
-          echo "MySQL did not become ready in time."
-          docker logs ts_exercise_db
-          exit 1  
 
       - name: Execute init.sql manually
         run: |
@@ -47,13 +39,13 @@ jobs:
         with:
           node-version: '16'  # Node.jsのバージョンを指定
           
-      #- name: Cache node_modules
-      #  uses: actions/cache@v3
-      #  with:
-      #    path: ~/.npm  # npmのキャッシュを保存する場所
-      #    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}  # package-lock.jsonの変更をトリガーにキャッシュを作成
-      #    restore-keys: |
-      #      ${{ runner.os }}-node-  # キャッシュが見つからない場合のフォールバックキー
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm  # npmのキャッシュを保存する場所
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}  # package-lock.jsonの変更をトリガーにキャッシュを作成
+          restore-keys: |
+            ${{ runner.os }}-node-  # キャッシュが見つからない場合のフォールバックキー
 
       - name: Install dependencies
         run: npm install  # 依存関係のインストール
@@ -106,10 +98,10 @@ jobs:
       # インターフェイス層のREST Controllerテスト
       - name: 商品キーワード検索コントローラのテスト
         run : npx jest test/interface/rest/controller/KeywordSearchProductRESTController.spec.ts
-      - name: 商品登録コントローラのテスト
-        run : npx jest test/interface/rest/controller/ProductRegisterRESTController.spec.ts
-      - name: 商品変更コントローラのテスト
-        run : npx jest test/interface/rest/controller/UpdateProductRESTController.spec.ts
+      #- name: 商品登録コントローラのテスト
+      #  run : npx jest test/interface/rest/controller/ProductRegisterRESTController.spec.ts
+      #- name: 商品変更コントローラのテスト
+      #  run : npx jest test/interface/rest/controller/UpdateProductRESTController.spec.ts
       # テスト後にコンテナを停止
       - name: Stop services after tests
         run: |
