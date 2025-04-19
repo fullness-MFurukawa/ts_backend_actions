@@ -10,14 +10,13 @@ import { ProductDTO } from "@src/application/in/dto/ProductDTO";
  * @version 1.0.0
  */
 @ApiTags("商品キーワード検索")      // Swagger UIでカテゴリ表示
-//@ApiBearerAuth('access-token')     // Swaggerの「Authorize」ボタンを有効にするため
 @Controller('products/search')
 export class ProductKeywordSearchRESTController {
 
     private readonly logger = new Logger(ProductKeywordSearchRESTController.name);
     /**
      * コンストラクタ
-     * @param usecase 商品ユースケース
+     * @param usecase 商品検索ユースケース
      */
     constructor(
         @Inject('SearchProductUsecase')
@@ -32,11 +31,6 @@ export class ProductKeywordSearchRESTController {
     @ApiQuery({ name: "keyword", required: true, description: "検索する商品キーワード" })
     @ApiResponse({ status: 200, description: "成功", type: [ProductDTO] })
     @ApiResponse({ status: 404, description: "商品が見つからない" })
-    // @UseGuards(AuthGuard('jwt'),RolesGuard) // 2025-03-28 RolesGuardを追加
-    // 2025-03-28 RolesGuardを追加
-    // 2035-03-30 JWT認証ガード（ブラックリスト対応)
-    //@UseGuards(AuthGuard('jwt'), RolesGuard, JwtBlacklistGuard)
-    //@Roles('Guest') // Guestロールを持っていればアクセス可能
     @Get()
     async searchByKeyword(
     @Query(new ValidationPipe({ transform: true })) param: ProductKeywordSearchParam): Promise<ProductDTO[]> {
