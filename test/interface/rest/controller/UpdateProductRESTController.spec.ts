@@ -152,7 +152,7 @@ describe('既存商品変更(UpdateProductRESTController)のテスト', () => {
                 price: -1, // 無効な価格
             };
             const response = await request(app.getHttpServer())
-                .put('/products/modify')
+                .put('/products/update')
                 .send(param) // リクエストボディを送信
                 .expect(400); // ステータスコード 400 を期待
             // エラーレスポンスを検証
@@ -167,5 +167,4 @@ describe('既存商品変更(UpdateProductRESTController)のテスト', () => {
             });
         });
     });
-
 });
