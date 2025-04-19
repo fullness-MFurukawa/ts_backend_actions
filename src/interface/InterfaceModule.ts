@@ -3,6 +3,8 @@ import { ApplicationModule } from "@src/application/ApplicationModule";
 import { ProductKeywordSearchRESTController } from "./rest/controller/ProductKeywordSearchRESTController";
 import { RegisterProductParamConverter } from "./rest/adapter/RegisterProductParamConverter";
 import { ProductRegisterRESTController } from "./rest/controller/ProductRegisterRESTController";
+import { UpdateProductParamConverter } from "./rest/adapter/UpdateProductParamConverter";
+import { UpdateProductRESTController } from "./rest/controller/UpdateProductRESTController";
 
 /**
  * インターフェイス層のモジュール定義
@@ -17,8 +19,9 @@ import { ProductRegisterRESTController } from "./rest/controller/ProductRegister
         ApplicationModule   ,  // サービス層のモジュール定義
     ],
     controllers:[
-        ProductKeywordSearchRESTController, // 商品キーワード検索RESTAPIコントローラ
-        ProductRegisterRESTController, // 商品登録RESTAPIコントローラ
+        ProductKeywordSearchRESTController  , // 商品キーワード検索RESTAPIコントローラ
+        ProductRegisterRESTController       , // 商品登録RESTAPIコントローラ
+        UpdateProductRESTController         , // 商品変更RESTAPIコントローラ
     ],
     providers:[
         // RegisterProductParamからProductDTOへの変換
@@ -26,9 +29,15 @@ import { ProductRegisterRESTController } from "./rest/controller/ProductRegister
             provide:    'RegisterProductParamConverter' ,
             useClass:   RegisterProductParamConverter,
         },
+        // UpdateProductParamからProductDTOへの変換
+        {
+            provide:    'UpdateProductParamConverter',
+            useClass:   UpdateProductParamConverter ,
+        },
     ],
     exports:[
         'RegisterProductParamConverter' ,
+        'UpdateProductParamConverter'   ,
     ]
 })
 export class InterfaceModule {}

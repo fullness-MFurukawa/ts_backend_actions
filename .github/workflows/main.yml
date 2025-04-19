@@ -100,6 +100,8 @@ jobs:
         run : npx jest test/interface/rest/controller/ProductKeywordSearchRESTController.spec.ts
       - name: 商品登録コントローラのテスト
         run : npx jest test/interface/rest/controller/ProductRegisterRESTController.spec.ts
+      - name: 商品変更コントローラのテスト
+        run : npx jest test/interface/rest/controller/UpdateProductRESTController.spec.ts
       # テスト後にコンテナを停止
       - name: Stop services after tests
         run: |
