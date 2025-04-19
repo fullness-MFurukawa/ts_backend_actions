@@ -22,7 +22,7 @@ export class UpdateProductRESTController {
      * @param converter UpdateProductParamからProductDTOへの変換クラス
      */
     constructor(
-        @Inject('ProductUsecase')
+        @Inject('UpdateProductUsecase')
         private readonly usecase: UpdateProductUsecase,   // 商品変更ユースケース
         @Inject('UpdateProductParamConverter')
         private readonly converter: Converter<UpdateProductParam , ProductDTO>
