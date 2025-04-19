@@ -105,7 +105,7 @@ jobs:
       #  run : npx jest test/application/in/interactor/UpdateProductInteractor.spec.ts
       # インターフェイス層のREST Controllerテスト
       - name: 商品キーワード検索コントローラのテスト
-        run : npx jest test/interface/rest/controller/ProductKeywordSearchRESTController.spec.ts
+        run : npx jest test/interface/rest/controller/KeywordSearchProductRESTController.spec.ts
       - name: 商品登録コントローラのテスト
         run : npx jest test/interface/rest/controller/ProductRegisterRESTController.spec.ts
       - name: 商品変更コントローラのテスト
