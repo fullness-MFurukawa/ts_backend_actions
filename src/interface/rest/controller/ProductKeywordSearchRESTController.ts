@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Logger, Query, ValidationPipe } from "@nestjs/common";
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import type { SearchProductUsecase } from "@src/application/in/usecase/SearchProductUsecase";
 import { ProductKeywordSearchParam } from "../param/ProductKeywordSearchParam";
 import { ProductDTO } from "@src/application/in/dto/ProductDTO";

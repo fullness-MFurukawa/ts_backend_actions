@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ApplicationModule } from "@src/application/ApplicationModule";
+import { ProductKeywordSearchRESTController } from "./rest/controller/ProductKeywordSearchRESTController";
 
 /**
  * インターフェイス層のモジュール定義
@@ -12,6 +13,9 @@ import { ApplicationModule } from "@src/application/ApplicationModule";
 @Module({
     imports: [
         ApplicationModule   ,  // サービス層のモジュール定義
+    ],
+    controllers:[
+        ProductKeywordSearchRESTController, // 商品キーワード検索RESTAPIコントローラ
     ],
     providers:[
     ],
