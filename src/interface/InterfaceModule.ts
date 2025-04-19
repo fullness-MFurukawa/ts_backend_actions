@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ApplicationModule } from "@src/application/ApplicationModule";
 import { ProductKeywordSearchRESTController } from "./rest/controller/ProductKeywordSearchRESTController";
 import { RegisterProductParamConverter } from "./rest/adapter/RegisterProductParamConverter";
+import { ProductRegisterRESTController } from "./rest/controller/ProductRegisterRESTController";
 
 /**
  * インターフェイス層のモジュール定義
@@ -17,6 +18,7 @@ import { RegisterProductParamConverter } from "./rest/adapter/RegisterProductPar
     ],
     controllers:[
         ProductKeywordSearchRESTController, // 商品キーワード検索RESTAPIコントローラ
+        ProductRegisterRESTController, // 商品登録RESTAPIコントローラ
     ],
     providers:[
         // RegisterProductParamからProductDTOへの変換
