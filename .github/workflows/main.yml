@@ -26,9 +26,11 @@ jobs:
       # テストで利用するテーブルとデータの準備
       - name: Wait for MySQL to be ready (with query)
         run: |
-          until docker exec ts_exercise_db mysql -uroot -proot -e "SELECT 1" &>/dev/null; do
-          echo "Waiting for MySQL..."; sleep 2;
-          done
+          for i in {1..30}; do
+          echo "Checking MySQL ($i/30)..."
+          if docker exec ts_exercise_db mysql -uroot -proot -e "SELECT 1" > /dev/null 2>&1; then
+          echo "MySQL is ready!"
+          exit 0
 
       - name: Execute init.sql manually
         run: |
