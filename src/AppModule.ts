@@ -3,6 +3,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { InfrastructureModule } from "./infrastructure/InfrastructureModule";
 import { ApplicationModule } from "./application/ApplicationModule";
+import { InterfaceModule } from "./interface/InterfaceModule";
 
 /**
  * アプリケーション全体のモジュール定義
@@ -29,7 +30,7 @@ import { ApplicationModule } from "./application/ApplicationModule";
         }),
         InfrastructureModule    ,// インフラストラクチャ層のモジュール定義
         ApplicationModule       ,// アプリケーション層のモジュール定義
-        InfrastructureModule    ,// インターフェイス層のモジュール定義
+        InterfaceModule         ,// インターフェイス層のモジュール定義
     ],
     exports: [JwtModule],
 })

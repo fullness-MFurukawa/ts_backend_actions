@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], CategoryModel.prototype, "objId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "varchar", length: 20, nullable: false }),
+    (0, typeorm_1.Column)({ type: "varchar", length: 100, nullable: false }),
     __metadata("design:type", String)
 ], CategoryModel.prototype, "name", void 0);
 __decorate([
