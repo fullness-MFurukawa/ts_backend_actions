@@ -52,6 +52,7 @@ exports.HttpExceptionFilter = HttpExceptionFilter;
  */
 HttpExceptionFilter.statusMap = new Map([
     [common_1.HttpException, common_1.HttpStatus.INTERNAL_SERVER_ERROR], // デフォルト
+    [common_1.BadRequestException, common_1.HttpStatus.BAD_REQUEST],
     [DomainException_1.DomainException, common_1.HttpStatus.BAD_REQUEST], // DomainException
     [ExistsException_1.ExistsException, common_1.HttpStatus.BAD_REQUEST], // ExistsException
     [NotFoundException_1.NotFoundException, common_1.HttpStatus.NOT_FOUND], // NotFoundException

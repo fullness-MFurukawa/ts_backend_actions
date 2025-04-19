@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ApplicationModule } from "@src/application/ApplicationModule";
-import { ProductKeywordSearchRESTController } from "./rest/controller/ProductKeywordSearchRESTController";
+import { KeywordSearchProductRESTController} from "./rest/controller/KeywordSearchProductRESTController";
 import { RegisterProductParamConverter } from "./rest/adapter/RegisterProductParamConverter";
 import { ProductRegisterRESTController } from "./rest/controller/ProductRegisterRESTController";
 import { UpdateProductParamConverter } from "./rest/adapter/UpdateProductParamConverter";
@@ -19,7 +19,7 @@ import { UpdateProductRESTController } from "./rest/controller/UpdateProductREST
         ApplicationModule   ,  // サービス層のモジュール定義
     ],
     controllers:[
-        ProductKeywordSearchRESTController  , // 商品キーワード検索RESTAPIコントローラ
+        KeywordSearchProductRESTController  , // 商品キーワード検索RESTAPIコントローラ
         ProductRegisterRESTController       , // 商品登録RESTAPIコントローラ
         UpdateProductRESTController         , // 商品変更RESTAPIコントローラ
     ],

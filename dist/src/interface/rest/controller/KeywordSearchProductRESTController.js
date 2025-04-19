@@ -11,9 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var ProductKeywordSearchRESTController_1;
+var KeywordSearchProductRESTController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductKeywordSearchRESTController = void 0;
+exports.KeywordSearchProductRESTController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const ProductKeywordSearchParam_1 = require("../param/ProductKeywordSearchParam");
@@ -24,14 +24,14 @@ const ProductDTO_1 = require("../../../application/in/dto/ProductDTO");
  * @date 2025-03-16
  * @version 1.0.0
  */
-let ProductKeywordSearchRESTController = ProductKeywordSearchRESTController_1 = class ProductKeywordSearchRESTController {
+let KeywordSearchProductRESTController = KeywordSearchProductRESTController_1 = class KeywordSearchProductRESTController {
     /**
      * コンストラクタ
      * @param usecase 商品検索ユースケース
      */
     constructor(usecase) {
         this.usecase = usecase;
-        this.logger = new common_1.Logger(ProductKeywordSearchRESTController_1.name);
+        this.logger = new common_1.Logger(KeywordSearchProductRESTController_1.name);
     }
     /**
      * 商品キーワード検索リクエストハンドラ
@@ -43,7 +43,7 @@ let ProductKeywordSearchRESTController = ProductKeywordSearchRESTController_1 = 
         return await this.usecase.getByKeyword(param.keyword);
     }
 };
-exports.ProductKeywordSearchRESTController = ProductKeywordSearchRESTController;
+exports.KeywordSearchProductRESTController = KeywordSearchProductRESTController;
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: "商品キーワード検索", description: "キーワードを含む商品を検索します。" }),
     (0, swagger_1.ApiQuery)({ name: "keyword", required: true, description: "検索する商品キーワード" }),
@@ -54,11 +54,11 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [ProductKeywordSearchParam_1.ProductKeywordSearchParam]),
     __metadata("design:returntype", Promise)
-], ProductKeywordSearchRESTController.prototype, "searchByKeyword", null);
-exports.ProductKeywordSearchRESTController = ProductKeywordSearchRESTController = ProductKeywordSearchRESTController_1 = __decorate([
+], KeywordSearchProductRESTController.prototype, "searchByKeyword", null);
+exports.KeywordSearchProductRESTController = KeywordSearchProductRESTController = KeywordSearchProductRESTController_1 = __decorate([
     (0, swagger_1.ApiTags)("商品キーワード検索") // Swagger UIでカテゴリ表示
     ,
     (0, common_1.Controller)('products/search'),
     __param(0, (0, common_1.Inject)('SearchProductUsecase')),
     __metadata("design:paramtypes", [Object])
-], ProductKeywordSearchRESTController);
+], KeywordSearchProductRESTController);

@@ -11,9 +11,9 @@ import { ProductDTO } from "@src/application/in/dto/ProductDTO";
  */
 @ApiTags("商品キーワード検索")      // Swagger UIでカテゴリ表示
 @Controller('products/search')
-export class ProductKeywordSearchRESTController {
+export class KeywordSearchProductRESTController {
 
-    private readonly logger = new Logger(ProductKeywordSearchRESTController.name);
+    private readonly logger = new Logger(KeywordSearchProductRESTController.name);
     /**
      * コンストラクタ
      * @param usecase 商品検索ユースケース

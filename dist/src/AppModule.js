@@ -12,6 +12,7 @@ const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
 const InfrastructureModule_1 = require("./infrastructure/InfrastructureModule");
 const ApplicationModule_1 = require("./application/ApplicationModule");
+const InterfaceModule_1 = require("./interface/InterfaceModule");
 /**
  * アプリケーション全体のモジュール定義
  * - 各レイヤーモジュールを統合
@@ -41,7 +42,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             InfrastructureModule_1.InfrastructureModule, // インフラストラクチャ層のモジュール定義
             ApplicationModule_1.ApplicationModule, // アプリケーション層のモジュール定義
-            InfrastructureModule_1.InfrastructureModule, // インターフェイス層のモジュール定義
+            InterfaceModule_1.InterfaceModule, // インターフェイス層のモジュール定義
         ],
         exports: [jwt_1.JwtModule],
     })
