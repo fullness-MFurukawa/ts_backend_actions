@@ -77,7 +77,7 @@ describe('既存商品変更(UpdateProductRESTController)のテスト', () => {
                 price: 120,
             };
             await request(app.getHttpServer())
-                .put('/products/modify')
+                .put('/products/update')
                 .send(restoreProductParam) // 復元データを送信
                 .expect(200);
             // 復元されたデータを検証
