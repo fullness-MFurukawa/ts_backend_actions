@@ -53,4 +53,32 @@ describe('HttpExceptionFilterのテスト', () => {
             timestamp: expect.any(String),
         }));
     });
+    /**
+     * 想定外の標準エラー（Error）を処理し、500が返ることを検証
+     */
+    it('予期しないエラーを処理してステータス500を返す', () => {
+        const exception = new Error('未知のエラー');
+        filter.catch(exception, mockContext);
+        expect(mockResponse.status).toHaveBeenCalledWith(common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
+            statusCode: 500,
+            message: '未知のエラー',
+            path: '/test-endpoint',
+            timestamp: expect.any(String),
+        }));
+    });
+    /**
+     * NestJSの標準例外（InternalServerErrorException）を処理し、500が返ることを検証
+     */
+    it('InternalServerErrorExceptionを適切に処理している', () => {
+        const exception = new common_1.InternalServerErrorException('内部エラー');
+        filter.catch(exception, mockContext);
+        expect(mockResponse.status).toHaveBeenCalledWith(common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
+            statusCode: 500,
+            message: '内部エラー',
+            path: '/test-endpoint',
+            timestamp: expect.any(String),
+        }));
+    });
 });

@@ -49,6 +49,12 @@ jobs:
         run: |
           mysql -h 127.0.0.1 -u root -proot exercise_db < ./docker/init.d/service.sql
 
+      # --- 例外フィルターのテスト ---
+      - name: HttpExceptionFilterの単体テスト(モックを使用)
+        run: npx jest test/interface/filter/HttpExceptionFilter.mock.spec.ts  
+      # --- リクエストパラメータからアプリケーション層のDTOへの変換テスト ---  
+      - name: RegisterProductParamからProductDTOへの変換テスト
+        run: npx jest test/interface/rest/adapter/RegisterProductParamConverter.spec.ts 
       # --- RESTコントローラテスト ---
       - name: 商品キーワード検索コントローラのテスト
         run: npx jest test/interface/rest/controller/KeywordSearchProductRESTController.spec.ts
@@ -56,6 +62,4 @@ jobs:
         run: npx jest test/interface/rest/controller/RegisterProductRESTController.spec.ts
       - name: 商品変更コントローラのテスト
         run: npx jest test/interface/rest/controller/UpdateProductRESTController.spec.ts
-      # --- 例外フィルターのテスト ---
-      - name: HttpExceptionFilterの単体テスト(モックを使用)
-        run: npx jest test/interface/filter/HttpExceptionFilter.mock.spec.ts  
+      
