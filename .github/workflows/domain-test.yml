@@ -34,3 +34,8 @@ jobs:
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
       - name: エンティティ:Productのテスト
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
+
+      - name: ドメインテスト出力ファイル指定
+        run: |
+          export JEST_JUNIT_OUTPUT_NAME=domain-results.xml
+          npx jest

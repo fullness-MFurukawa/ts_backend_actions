@@ -11,6 +11,7 @@ import { CategoryName } from "@src/application/domain/model/category/CategoryNam
  * @version 1.0.0
  */
 describe('エンティティ:Categoryの単体テスト', () => {
+
     describe('create()メソッド', () => {
         it('新しいCategoryインスタンスを生成する', () => {
             const name = CategoryName.fromString('文房具');
@@ -19,6 +20,7 @@ describe('エンティティ:Categoryの単体テスト', () => {
             expect(category.getId()).toBeInstanceOf(CategoryId);
         });
     });
+    
     describe('fromExisting()メソッド', () => {
         it('既存のデータからCategoryインスタンスを生成する', () => {
             const id = CategoryId.createNew();
