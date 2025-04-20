@@ -13,7 +13,6 @@ import request from 'supertest';
  * @version 1.0.0
  */
 describe('商品キーワード検索(KeywordSearchProductRESTController)のテスト', () => {
-    
     let app: INestApplication; // NestJSアプリケーションインスタンス
     /**
      * すべてのテストの前処理
