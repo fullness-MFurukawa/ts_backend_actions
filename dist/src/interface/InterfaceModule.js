@@ -11,7 +11,7 @@ const common_1 = require("@nestjs/common");
 const ApplicationModule_1 = require("../application/ApplicationModule");
 const KeywordSearchProductRESTController_1 = require("./rest/controller/KeywordSearchProductRESTController");
 const RegisterProductParamConverter_1 = require("./rest/adapter/RegisterProductParamConverter");
-const ProductRegisterRESTController_1 = require("./rest/controller/ProductRegisterRESTController");
+const RegisterProductRESTController_1 = require("./rest/controller/RegisterProductRESTController");
 const UpdateProductParamConverter_1 = require("./rest/adapter/UpdateProductParamConverter");
 const UpdateProductRESTController_1 = require("./rest/controller/UpdateProductRESTController");
 /**
@@ -32,7 +32,7 @@ exports.InterfaceModule = InterfaceModule = __decorate([
         ],
         controllers: [
             KeywordSearchProductRESTController_1.KeywordSearchProductRESTController, // 商品キーワード検索RESTAPIコントローラ
-            ProductRegisterRESTController_1.ProductRegisterRESTController, // 商品登録RESTAPIコントローラ
+            RegisterProductRESTController_1.RegisterProductRESTController, // 商品登録RESTAPIコントローラ
             UpdateProductRESTController_1.UpdateProductRESTController, // 商品変更RESTAPIコントローラ
         ],
         providers: [

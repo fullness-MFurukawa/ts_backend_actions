@@ -56,3 +56,6 @@ jobs:
         run: npx jest test/interface/rest/controller/RegisterProductRESTController.spec.ts
       - name: 商品変更コントローラのテスト
         run: npx jest test/interface/rest/controller/UpdateProductRESTController.spec.ts
+      # --- 例外フィルターのテスト ---
+      - name: HttpExceptionFilterの単体テスト(モックを使用)
+        run: npx jest test/interface/filter/HttpExceptionFilter.mock.spec.ts  

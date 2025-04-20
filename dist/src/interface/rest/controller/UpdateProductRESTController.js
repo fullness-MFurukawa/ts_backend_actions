@@ -103,7 +103,7 @@ exports.UpdateProductRESTController = UpdateProductRESTController = UpdateProduc
     (0, swagger_1.ApiTags)("商品変更(商品名、単価)") // Swaggerのカテゴリ設定
     ,
     (0, common_1.Controller)('products/update'),
-    __param(0, (0, common_1.Inject)('ProductUsecase')),
+    __param(0, (0, common_1.Inject)('UpdateProductUsecase')),
     __param(1, (0, common_1.Inject)('UpdateProductParamConverter')),
     __metadata("design:paramtypes", [Object, Object])
 ], UpdateProductRESTController);

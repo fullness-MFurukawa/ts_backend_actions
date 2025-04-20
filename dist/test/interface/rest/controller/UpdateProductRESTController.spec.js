@@ -77,7 +77,7 @@ describe('既存商品変更(UpdateProductRESTController)のテスト', () => {
                 price: 120,
             };
             await (0, supertest_1.default)(app.getHttpServer())
-                .put('/products/modify')
+                .put('/products/update')
                 .send(restoreProductParam) // 復元データを送信
                 .expect(200);
             // 復元されたデータを検証
@@ -137,7 +137,7 @@ describe('既存商品変更(UpdateProductRESTController)のテスト', () => {
             expect(response.body).toEqual({
                 statusCode: 404,
                 timestamp: expect.any(String),
-                path: '/products/modify',
+                path: '/products/update',
                 message: `商品Id:(${productId})の商品は存在しないため変更できませんでした。`,
             });
         });
@@ -150,7 +150,7 @@ describe('既存商品変更(UpdateProductRESTController)のテスト', () => {
                 price: -1, // 無効な価格
             };
             const response = await (0, supertest_1.default)(app.getHttpServer())
-                .put('/products/modify')
+                .put('/products/update')
                 .send(param) // リクエストボディを送信
                 .expect(400); // ステータスコード 400 を期待
             // エラーレスポンスを検証
