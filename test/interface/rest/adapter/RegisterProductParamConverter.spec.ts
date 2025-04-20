@@ -31,7 +31,7 @@ describe('RegisterProductParamConverterの単体テスト', () => {
         await app.init();
 
         // RegisterProductParamConverterをDIコンテナから取得
-        converter = app.get<Converter<RegisterProductParam, ProductDTO>>(RegisterProductParamConverter);
+        converter = app.get<Converter<RegisterProductParam, ProductDTO>>('RegisterProductParamConverter');
     });
 
     /**
