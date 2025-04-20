@@ -58,6 +58,7 @@
         "@typescript-eslint/eslint-plugin": "^8.26.0",
         "@typescript-eslint/parser": "^8.26.0",
         "cookie-parser": "^1.4.7",
+        "dotenv-cli": "^8.0.0",
         "eslint": "^9.22.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.2.3",
