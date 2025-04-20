@@ -55,6 +55,8 @@ jobs:
       # --- リクエストパラメータからアプリケーション層のDTOへの変換テスト ---  
       - name: RegisterProductParamからProductDTOへの変換テスト
         run: npx jest test/interface/rest/adapter/RegisterProductParamConverter.spec.ts 
+      - name: UpdateProductParamからProductDTOへの変換テスト
+        run: npx jest test/interface/rest/adapter/UpdateProductParamConverter.spec.ts
       # --- RESTコントローラテスト ---
       - name: 商品キーワード検索コントローラのテスト
         run: npx jest test/interface/rest/controller/KeywordSearchProductRESTController.spec.ts
