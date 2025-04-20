@@ -1,4 +1,4 @@
-name: 完全なテストパイプライン
+name: レイヤー別テストパイプライン（変更検出ベース）
 
 on:
   push:
@@ -6,15 +6,95 @@ on:
   pull_request:
 
 jobs:
+  # ------------------------------------------------------------
+  # 変更検出ジョブ：各レイヤーの変更有無を判定
+  # ------------------------------------------------------------
+  detect-changes:
+    runs-on: ubuntu-latest
+
+    # 各レイヤーの変更有無を出力（後続ジョブが参照）
+    outputs:
+      domain: ${{ steps.set-domain.outputs.domain }}
+      application: ${{ steps.set-application.outputs.application }}
+      infrastructure: ${{ steps.set-infrastructure.outputs.infrastructure }}
+      interface: ${{ steps.set-interface.outputs.interface }}
+
+    steps:
+      - name: チェックアウトコード
+        uses: actions/checkout@v3
+
+      - name: 変更検出
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: >
+            {
+              "domain": [
+                "src/application/domain/**",
+                "test/application/domain/**"
+              ],
+              "application": [
+                "src/application/in/**",
+                "test/application/in/**"
+              ],
+              "infrastructure": [
+                "src/infrastructure/**",
+                "test/infrastructure/**"
+              ],
+              "interface": [
+                "src/interface/**",
+                "test/interface/**"
+              ]
+            }
+
+      # domainレイヤーの変更有無を出力
+      - name: ドメイン出力
+        id: set-domain
+        run: echo "domain=${{ steps.filter.outputs.domain || 'false' }}" >> "$GITHUB_OUTPUT"
+
+      # applicationレイヤーの変更有無を出力
+      - name: アプリケーション出力
+        id: set-application
+        run: echo "application=${{ steps.filter.outputs.application || 'false' }}" >> "$GITHUB_OUTPUT"
+
+      # infrastructureレイヤーの変更有無を出力
+      - name: インフラ出力
+        id: set-infrastructure
+        run: echo "infrastructure=${{ steps.filter.outputs.infrastructure || 'false' }}" >> "$GITHUB_OUTPUT"
+
+      # interfaceレイヤーの変更有無を出力
+      - name: インターフェース出力
+        id: set-interface
+        run: echo "interface=${{ steps.filter.outputs.interface || 'false' }}" >> "$GITHUB_OUTPUT"
+
+  # ------------------------------------------------------------
   # ドメイン層のテスト
+  # ------------------------------------------------------------
   domain:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.domain == 'true'
     uses: ./.github/workflows/domain-test.yml
-  # インフラストラクチャ層のテスト
-  infrastructure:
-    uses: ./.github/workflows/infrastructure-test.yml  
+
+  # ------------------------------------------------------------
   # アプリケーション層のテスト
+  # ------------------------------------------------------------
   application:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.application == 'true'
     uses: ./.github/workflows/application-test.yml
-  #　インターフェイス層のテスト
+
+  # ------------------------------------------------------------
+  # インフラストラクチャ層のテスト
+  # ------------------------------------------------------------
+  infrastructure:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.infrastructure == 'true'
+    uses: ./.github/workflows/infrastructure-test.yml
+
+  # ------------------------------------------------------------
+  # インターフェイス層のテスト
+  # ------------------------------------------------------------
   interface:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.interface == 'true'
     uses: ./.github/workflows/interface-test.yml

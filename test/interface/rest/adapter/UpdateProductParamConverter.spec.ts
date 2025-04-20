@@ -69,7 +69,6 @@ describe('UpdateProductParamConverterの単体テスト', () => {
     describe('convertAll() メソッド', () => {
         it('convertAll() を呼び出すと未実装エラーになる', async () => {
             const paramList: UpdateProductParam[] = [];
-
             await expect(async () => {
                 await converter.convertAll(paramList);
             }).rejects.toThrow('Method not implemented.');
