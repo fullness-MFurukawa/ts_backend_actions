@@ -11,7 +11,6 @@ import { CategoryName } from "@src/application/domain/model/category/CategoryNam
  * @version 1.0.0
  */
 describe('エンティティ:Categoryの単体テスト', () => {
-    
     describe('create()メソッド', () => {
         it('新しいCategoryインスタンスを生成する', () => {
             const name = CategoryName.fromString('文房具');

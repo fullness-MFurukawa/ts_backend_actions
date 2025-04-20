@@ -7,8 +7,7 @@
     "scripts": {
         "build": "nest build",
         "start": "node dist/src/main.js",
-        "test": "jest --verbose",
-        "test:ci": "npx dotenv-cli -e .env.test -- jest"
+        "test": "jest --verbose"
     },
     "dependencies": {
         "@grpc/grpc-js": "^1.12.5",

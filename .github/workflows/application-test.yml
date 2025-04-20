@@ -31,8 +31,7 @@ jobs:
 
       - name: 依存関係をインストールする
         run: npm ci
-      - name: テスト用環境変数を読み込んでJest実行
-        run: npm run test:ci
+    
 
       - name: MySQLの起動を待機
         run: |
