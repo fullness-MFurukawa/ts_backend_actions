@@ -1,4 +1,4 @@
-name: インターフェース層のテスト
+name: 🌐 インターフェイス層のテスト
 
 on:
   workflow_call:
