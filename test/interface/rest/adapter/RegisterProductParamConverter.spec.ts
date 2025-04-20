@@ -79,8 +79,9 @@ describe('RegisterProductParamConverterの単体テスト', () => {
     describe('convertAll() メソッド', () => {
         it('convertAll() を呼び出すと未実装エラーになる', async () => {
             const paramList: RegisterProductParam[] = [];
-            await expect(converter.convertAll(paramList))
-                .rejects.toThrow('Method not implemented.');
+            await expect(async () => {
+                await converter.convertAll(paramList);
+            }).rejects.toThrow('Method not implemented.');
         });
     });
 });
