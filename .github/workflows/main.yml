@@ -15,3 +15,6 @@ jobs:
   # アプリケーション層のテスト
   application:
     uses: ./.github/workflows/application-test.yml
+  #　インターフェイス層のテスト
+  interface:
+    uses: ./.github/workflows/interface-test.yml
