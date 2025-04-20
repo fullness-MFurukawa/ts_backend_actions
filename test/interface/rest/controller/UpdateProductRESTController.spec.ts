@@ -88,6 +88,7 @@ describe('既存商品変更(UpdateProductRESTController)のテスト', () => {
             expect(restoredProductResponse.body.price).toBe(restoreProductParam.price);
         });
     });
+    
     describe('異常系', () => {
         it("商品取得 - 存在しない商品Idの場合は404エラーを返す", async () => {
             // 存在しない商品Id

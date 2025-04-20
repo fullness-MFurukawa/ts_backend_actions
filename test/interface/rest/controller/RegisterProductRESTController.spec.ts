@@ -94,6 +94,7 @@ describe('新商品登録(ProductRegisterRESTController)テスト', () => {
                 .execute();
         });
     });
+
     describe('異常系', () => {
         it('存在しない商品カテゴリIdを指定した場合404エラーを返す', async () => {
             // 存在しない商品カテゴリId
@@ -140,6 +141,7 @@ describe('新商品登録(ProductRegisterRESTController)テスト', () => {
             );
         });
     });
+    
     describe('バリデーションエラー', () => {
         it("商品登録 - 商品名が空の場合は400エラーを返す", async () => {
             const registerProductParam = {
