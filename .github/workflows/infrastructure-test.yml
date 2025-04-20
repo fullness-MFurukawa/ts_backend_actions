@@ -60,3 +60,10 @@ jobs:
       - name: ProductModelからProductエンティティへの復元テスト
         run: npx jest test/infrastructure/typeorm/adapter/ProductModelRestorer.spec.ts
 
+      # --- Repositoryインタフェース実装のテスト
+      - name: CategoryRepositoryインタフェース実装のテスト
+        run: npx jest test/infrastructure/typeorm/repository/CategoryRepositoryImpl.spec.ts
+      - name: ProductRepositoryインタフェース実装のテスト
+        run: npx jest test/infrastructure/typeorm/repository/ProductRepositoryImpl.spec.ts
+
+
