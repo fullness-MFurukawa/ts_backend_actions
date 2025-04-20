@@ -45,7 +45,7 @@ jobs:
           echo "MySQL did not become ready in time."
           exit 1
 
-      - name: ⚙️ 初期データを投入（init.sql）
+      - name: 初期データを投入（init.sql）
         run: |
           mysql -h 127.0.0.1 -u root -proot exercise_db < ./docker/init.d/service.sql
 
