@@ -19,7 +19,6 @@ describe('エンティティ:Categoryの単体テスト', () => {
             expect(category.getId()).toBeInstanceOf(CategoryId);
         });
     });
-
     describe('fromExisting()メソッド', () => {
         it('既存のデータからCategoryインスタンスを生成する', () => {
             const id = CategoryId.createNew();

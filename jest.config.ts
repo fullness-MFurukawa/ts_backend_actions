@@ -19,16 +19,4 @@ export default {
   testMatch: [
     "**/test/**/*.spec.ts"  // *.tsファイルのみを対象にする
   ],
-
-  // Jestのレポート出力設定（JUnit形式）
-  reporters: [
-    "default",
-    [
-      "jest-junit",
-      {
-        outputDirectory: "reports/junit",  // 出力先ディレクトリ
-        outputName: "jest-results.xml",    // ファイル名
-      },
-    ],
-  ],
 };

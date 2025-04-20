@@ -34,14 +34,3 @@ jobs:
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
       - name: エンティティ:Productのテスト
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
-
-      - name: ドメイン層テストを実行（JUnitレポート付き）
-        run: |
-          mkdir -p reports/junit
-          npx jest test/application/domain \
-            --reporters=default \
-            --reporters=jest-junit \
-            --outputFile=reports/junit/domain-results.xml
-        env:
-          JEST_JUNIT_OUTPUT_DIR: reports/junit
-          JEST_JUNIT_OUTPUT_NAME: domain-results.xml
