@@ -1,0 +1,36 @@
+name: ドメイン層のテスト
+
+on:
+  workflow_call:
+
+jobs:
+  domain-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: チェックアウトコード
+        uses: actions/checkout@v3
+
+      - name: ode.js をセットアップする
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: 依存関係をインストールする
+        run: npm ci
+      
+      # ドメイン層の値オブジェクト、エンティティのテスト
+      - name: Run CategoryIdTest
+        run: npx jest test/application/domain/model/category/CategoryId.spec.ts
+      - name: Run CategoryNameTest
+        run: npx jest test/application/domain/model/category/CategoryName.spec.ts
+      - name: Run CategoryTest
+        run: npx jest test/application/domain/model/category/Category.spec.ts
+      - name: Run ProductIdTest
+        run: npx jest test/application/domain/model/product/ProductId.spec.ts
+      - name: Run ProductNameTest
+        run: npx jest test/application/domain/model/product/ProductName.spec.ts
+      - name: Run ProductPriceTest
+        run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
+      - name: Run ProductTest
+        run: npx jest test/application/domain/model/product/ProductPrice.spec.ts

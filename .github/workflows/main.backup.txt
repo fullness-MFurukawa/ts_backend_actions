@@ -1,0 +1,108 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main  # 'main'ブランチにプッシュがあった場合に実行される
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # GitHubが提供するUbuntuランナーで実行
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # リポジトリからコードをチェックアウト
+
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose
+
+      # コンテナをバックグラウンドで起動
+      - name: Start services with Docker Compose
+        run: |
+          docker-compose -f docker-compose.test.yml up -d
+
+      # テストで利用するテーブルとデータの準備
+      - name: Wait for MySQL to be ready (with query)
+        run: |
+          until docker exec ts_exercise_db mysql -uroot -proot -e "SELECT 1" &>/dev/null; do
+            echo "Waiting for MySQL..."; sleep 2;
+          done
+
+      - name: Execute init.sql manually
+        run: |
+          docker exec -i ts_exercise_db mysql -uroot -proot exercise_db < ./docker/init.d/service.sql
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Node.jsのバージョンを指定
+          
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm  # npmのキャッシュを保存する場所
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}  # package-lock.jsonの変更をトリガーにキャッシュを作成
+          restore-keys: |
+            ${{ runner.os }}-node-  # キャッシュが見つからない場合のフォールバックキー
+
+      - name: Install dependencies
+        run: npm install  # 依存関係のインストール
+
+      # ドメイン層の値オブジェクト、エンティティのテスト
+      #- name: Run CategoryIdTest
+      #  run: npx jest test/application/domain/model/category/CategoryId.spec.ts
+      #- name: Run CategoryNameTest
+      #  run: npx jest test/application/domain/model/category/CategoryName.spec.ts
+      #- name: Run CategoryTest
+      #  run: npx jest test/application/domain/model/category/Category.spec.ts
+      #- name: Run ProductIdTest
+      #  run: npx jest test/application/domain/model/product/ProductId.spec.ts
+      #- name: Run ProductNameTest
+      #  run: npx jest test/application/domain/model/product/ProductName.spec.ts
+      #- name: Run ProductPriceTest
+      #  run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
+      #- name: Run ProductTest
+      #  run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
+
+      # インフラストラクチャ層のDDDエンティティとTypeORMモデルの相互変換機能のテスト
+      #- name: Run CategoryModelConverterTest
+      #  run: npx jest test/infrastructure/typeorm/adapter/CategoryModelConverter.spec.ts
+      #- name: Run CategoryModelRestorerTest
+      #  run: npx jest test/infrastructure/typeorm/adapter/CategoryModelRestorer.spec.ts
+      #- name: Run ProductModelConverterTest
+      #  run : npx jest test/infrastructure/typeorm/adapter/ProductModelConverter.spec.ts
+      #- name: Run ProductModelRestorerTest
+      #  run : npx jest test/infrastructure/typeorm/adapter/ProductModelRestorer.spec.ts
+      # Repositoryインターフェイス実装の単体テスト
+      #- name: Run CategoryRepositoryImplTest
+      #  run : npx jest test/infrastructure/typeorm/repository/CategoryRepositoryImpl.spec.ts
+      #- name: Run ProductRepositoryImplTest
+      #  run : npx jest test/infrastructure/typeorm/repository/ProductRepositoryImpl.spec.ts
+      
+      # アプリケーション層のDDDエンティティからDTOへの変換機能のテスト
+      #- name: Run CategoryDTOConverterTest
+      #  run : npx jest test/application/in/adapter/CategoryDTOConverter.spec.ts    
+      #- name: Run ProductDTOConverterTest
+      #  run : npx jest test/application/in/adapter/ProductDTOConverter.spec.ts
+      #- name: Run ProductDTORestorerTest
+      #  run : npx jest test/application/in/adapter/ProductDTORestorer.spec.ts
+      # アプリケーション層のユースケースインターフェイス実装のテスト
+      #- name: Run SearchProductInteractorTest
+      #  run : npx jest test/application/in/interactor/SearchProductInteractor.spec.ts    
+      #- name: Run RegisterProductInteractorTest
+      #  run : npx jest test/application/in/interactor/RegisterProductInteractor.spec.ts    
+      #- name: Run UpdateProductInteractorTest
+      #  run : npx jest test/application/in/interactor/UpdateProductInteractor.spec.ts
+      # インターフェイス層のREST Controllerテスト
+      - name: 商品キーワード検索コントローラのテスト
+        run : npx jest test/interface/rest/controller/KeywordSearchProductRESTController.spec.ts
+      - name: 商品登録コントローラのテスト
+        run : npx jest test/interface/rest/controller/RegisterProductRESTController.spec.ts
+      - name: 商品変更コントローラのテスト
+        run : npx jest test/interface/rest/controller/UpdateProductRESTController.spec.ts
+      # テスト後にコンテナを停止
+      - name: Stop services after tests
+        run: |
+          docker-compose -f docker-compose.test.yml down  
