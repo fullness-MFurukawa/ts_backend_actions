@@ -20,17 +20,17 @@ jobs:
         run: npm ci
       
       # ドメイン層の値オブジェクト、エンティティのテスト
-      - name: Run CategoryIdTest
+      - name: 値オブジェクト:CategoryIdのテスト
         run: npx jest test/application/domain/model/category/CategoryId.spec.ts
-      - name: Run CategoryNameTest
+      - name: 値オブジェクト:CategoryNameのテスト
         run: npx jest test/application/domain/model/category/CategoryName.spec.ts
-      - name: Run CategoryTest
+      - name: エンティティ:Categoryのテスト
         run: npx jest test/application/domain/model/category/Category.spec.ts
-      - name: Run ProductIdTest
+      - name: 値オブジェクト:ProductIdのテスト
         run: npx jest test/application/domain/model/product/ProductId.spec.ts
-      - name: Run ProductNameTest
+      - name: 値オブジェクト:ProductNameのテスト
         run: npx jest test/application/domain/model/product/ProductName.spec.ts
-      - name: Run ProductPriceTest
+      - name: 値オブジェクト:ProductPriceのテスト
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
-      - name: Run ProductTest
+      - name: エンティティ:Productのテスト
         run: npx jest test/application/domain/model/product/ProductPrice.spec.ts
