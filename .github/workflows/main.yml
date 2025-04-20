@@ -8,3 +8,6 @@ on:
 jobs:
   domain:
     uses: ./.github/workflows/domain-test.yml
+    
+  infrastructure:
+    uses: ./.github/workflows/infrastructure-test.yml  
