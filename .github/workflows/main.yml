@@ -6,8 +6,12 @@ on:
   pull_request:
 
 jobs:
+  # ドメイン層のテスト
   domain:
     uses: ./.github/workflows/domain-test.yml
-    
+  # インフラストラクチャ層のテスト
   infrastructure:
     uses: ./.github/workflows/infrastructure-test.yml  
+  # アプリケーション層のテスト
+  application:
+    uses: ./.github/workflows/application-test.yml

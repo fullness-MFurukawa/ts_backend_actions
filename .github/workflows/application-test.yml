@@ -1,0 +1,66 @@
+name: アプリケーション層のテスト
+
+on:
+  workflow_call:
+
+jobs:
+  application-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.1
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: exercise_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          TZ: 'Asia/Tokyo'
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-retries=5
+
+    steps:
+      - name: チェックアウトコード
+        uses: actions/checkout@v3
+
+      - name: Node.js をセットアップする
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: 依存関係をインストールする
+        run: npm ci
+
+      - name: MySQLの起動を待機
+        run: |
+          for i in {1..30}; do
+            if mysql -h 127.0.0.1 -u root -proot -e "SELECT 1;" exercise_db > /dev/null 2>&1; then
+              echo "MySQL is ready!"
+              exit 0
+            fi
+            echo "Waiting for MySQL... ($i)"
+            sleep 2
+          done
+          echo "MySQL did not become ready in time."
+          exit 1
+
+      - name: ⚙️ 初期データを投入（init.sql）
+        run: |
+          mysql -h 127.0.0.1 -u root -proot exercise_db < ./docker/init.d/service.sql
+
+      # --- エンティティとDTOの相互変換機能のテスト ---
+      - name: CategoryエンティティからCategoryDTOへの変換テスト
+        run: npx jest test/application/in/adapter/CategoryDTOConverter.spec.ts
+      - name: ProductエンティティからProductDTOへの変換テスト
+        run: npx jest test/application/in/adapter/ProductDTOConverter.spec.ts
+      - name: ProductDTOからProductエンティティへの復元テスト
+        run: npx jest test/application/in/adapter/ProductDTORestorer.spec.ts
+
+      # --- ユースケースインタフェース実装のテスト ---
+      - name: 商品キーワード検索ユースケースインタフェース実装のテスト
+        run: npx jest test/application/in/interactor/SearchProductInteractor.spec.ts
+      - name: 商品登録ユースケースインタフェース実装のテスト
+        run: npx jest test/application/in/interactor/RegisterProductInteractor.spec.ts
+      - name: 商品変更ユースケースインタフェース実装のテスト
+        run: npx jest test/application/in/interactor/UpdateProductInteractor.spec.ts
